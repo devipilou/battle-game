@@ -1,0 +1,3 @@
+const cards = [{ name: 'deux', short: '2' }, { name: 'trois', short: '3' }, { name: 'quatre', short: '4' }, { name: 'cinq', short: '5' }, { name: 'six', short: '6' }, { name: 'sept', short: '7' }, { name: 'huit', short: '8' }, { name: 'neuf', short: '9' }, { name: 'dix', short: '10' }, { name: 'valet', short: 'V' }, { name: 'dame', short: 'D' }, { name: 'roi', short: 'R' }, { name: 'as', short: 'A' }];
+
+export default cards

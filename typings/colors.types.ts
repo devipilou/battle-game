@@ -1,4 +1,4 @@
 export type colorType = {
-  name: String,
-  symbol: String
+  name: string,
+  symbol: string
 }

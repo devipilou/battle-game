@@ -1,19 +1,22 @@
 <template>
   <div>
     <h2>Distribution</h2>
-    <ProgressBar v-if="isLoading" :value="progress" :show-value="false" />
+    <ProgressSpinner v-if="isLoading" />
     <div v-else>
       <h3>Disitribution terminée</h3>
       <div class="list">
         <div>
           <h4>Joueur 1</h4>
-          <p v-for="card in firstPlayerStartingDeck" :class="cardClass(card.shortName)">{{ card.shortName }}</p>
+          <p>{{ firstPlayerStartingDeck.length }} carte(s)</p>
+          <p v-for="card in  firstPlayerStartingDeck " :class="cardClass(card.shortName)">{{ card.shortName }}</p>
         </div>
         <div>
           <h4>Joueur 2</h4>
-          <p v-for="card in secondPlayerStartingDeck" :class="cardClass(card.shortName)">{{ card.shortName }}</p>
+          <p>{{ secondPlayerStartingDeck.length }} carte(s)</p>
+          <p v-for=" card  in  secondPlayerStartingDeck " :class="cardClass(card.shortName)">{{ card.shortName }}</p>
         </div>
       </div>
+      <Button label="Commencer" icon="pi pi-play" @click="console.log('Commencer')" severity="primary" />
     </div>
   </div>
 </template>
@@ -21,12 +24,11 @@
 <script setup lang="ts">
 import { useShuffleDeck } from '../composables/shuffleDeck'
 
-const { firstPlayerStartingDeck, secondPlayerStartingDeck, progress } = useShuffleDeck();
-const isLoading = computed(() => {
-  return progress.value < 100;
-});
+const router = useRouter();
+const { firstPlayerStartingDeck, secondPlayerStartingDeck, isLoading } = useShuffleDeck();
 
-function cardClass(shortName) {
+
+function cardClass(shortName: string): string {
   return shortName.includes('\u2660') || shortName.includes('\u2663') ? 'black-card' : 'red-card'
 }
 </script>

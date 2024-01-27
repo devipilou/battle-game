@@ -6,5 +6,9 @@ export default defineNuxtConfig({
   ],
   primevue: {
   },
-  css: ['primevue/resources/themes/lara-light-green/theme.css', 'primeicons/primeicons.css']
+  css: [
+    'primevue/resources/themes/lara-light-green/theme.css',
+    'primeicons/primeicons.css',
+    '/node_modules/primeflex/primeflex.css'
+  ]
 })

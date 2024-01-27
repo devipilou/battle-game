@@ -1,18 +1,11 @@
 <template>
   <div>
-    <h1>Jeu de bataille</h1>
-    <NuxtPage class="app-body" />
-    <Button label="Retour à l'accueil" icon="pi pi-home" severity="secondary" @click="returnHome" />
+    <div class="flex align-items-center justify-content-between px-2">
+      <h1>Jeu de bataille</h1>
+      <Button label="Retour à l'accueil" icon="pi pi-home" severity="secondary" @click="$router.push('/')" />
+    </div>
+    <NuxtPage class="m-4" />
   </div>
 </template>
-<script setup lang="ts">
-const router = useRouter();
-function returnHome() {
-  router.push('/')
-} 
-</script>
-<style lang="scss">
-.app-body {
-  margin: 1rem;
-}
-</style>
+<script setup lang="ts"></script>
+<style scoped lang="scss"></style>

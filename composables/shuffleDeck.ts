@@ -1,15 +1,17 @@
 import cards from '../constants/cards.constants'
 import colors from '../constants/colors.constants'
 
-function createDeck(): Array<object> {
-  const deck: Array<object> = [];
+import type { cardType, deckType } from '../typings/cards.types'
+
+function createDeck(): deckType {
+  const deck: deckType = [];
 
   colors.forEach((color) => {
     cards.forEach((card, index) => {
       deck.push({
         fullName: `${card.name} de ${color.name}`,
         shortName: `${card.short} ${color.symbol}`,
-        color: color.hexa,
+        color: color.symbol,
         value: index,
       });
     });
@@ -20,17 +22,17 @@ function createDeck(): Array<object> {
 
 export function useShuffleDeck () {
   const unshuffledDeck = createDeck();
-  const progress = ref(0)
+  const isLoading = ref<boolean>(true)
 
 // Function to fill two arrays alternatively with objects
-function fillAlternatingArrays(): [Array<object>, Array<object>] {
-  const array1: Array<object> = [];
-  const array2: Array<object> = [];
+function fillAlternatingArrays(): [deckType, deckType] {
+  const array1: deckType = [];
+  const array2: deckType = [];
 
   // Create a deep copy of the sourceArray to avoid modifying the original
   const remainingObjects = [...unshuffledDeck];
 
-  function processIteration(i) {
+  function processIteration(i : number) {
     // Determine whether to use the first or the second array
     const currentArray = i % 2 === 0 ? array1 : array2;
 
@@ -44,7 +46,6 @@ function fillAlternatingArrays(): [Array<object>, Array<object>] {
     // Add the randomly selected object to the current array
     currentArray.push(randomObject);
 
-    progress.value += 100 / 52;
 
     // Check if there are more iterations to process
     if (i < unshuffledDeck.length - 1) {
@@ -54,8 +55,8 @@ function fillAlternatingArrays(): [Array<object>, Array<object>] {
       }, 50); 
     } else {
       // All iterations are done, do any final processing here
-      console.log("Arrays filled:", array1, array2);
-      progress.value = 100
+      // console.log("Arrays filled:", array1, array2);
+      isLoading.value = false;
     }
   }
 
@@ -68,5 +69,5 @@ function fillAlternatingArrays(): [Array<object>, Array<object>] {
 // Call the function to get two alternatively filled arrays
 const [firstPlayerStartingDeck, secondPlayerStartingDeck] = fillAlternatingArrays();
 
-  return {firstPlayerStartingDeck, secondPlayerStartingDeck, progress}
+  return {firstPlayerStartingDeck, secondPlayerStartingDeck, isLoading}
 }
